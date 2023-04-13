@@ -4,6 +4,7 @@ import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.dto.ResponseDTO;
 import com.bridgelabz.employeepayrollapp.model.EmployeeData;
 import com.bridgelabz.employeepayrollapp.services.IEmployeeServices;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class EmployeeController {
 
     //////////////////// ::  Save Description  :: ////////////////////
     @PostMapping("/add")
-    public ResponseDTO addEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public ResponseDTO addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
         EmployeeData empData = iEmployeeServices.addEmployee(employeeDTO);
         ResponseDTO responseDTO = new ResponseDTO("Data added Successfully", empData);
         return responseDTO;
@@ -36,7 +37,7 @@ public class EmployeeController {
 
     //////////////////// ::  Edit Description :: ////////////////////
     @PutMapping("/editEmp/{id}")
-    public String editEmployeeDetailsById(@RequestBody EmployeeDTO employeeDTO, @PathVariable int id){
+    public String editEmployeeDetailsById(@Valid @RequestBody EmployeeDTO employeeDTO, @PathVariable int id){
         EmployeeData empList = new EmployeeData(employeeDTO);
         return iEmployeeServices.editEmployeeDetailsById(empList,id);
     }
