@@ -4,7 +4,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
+import java.time.LocalDate;
+import java.util.List;
 
 @ToString
 public class EmployeeDTO {
@@ -15,4 +16,14 @@ public class EmployeeDTO {
 
     @Min(value = 500, message = "Salray shoild be greater than 500")
     public double salary;
+
+    public String gender;
+
+    public LocalDate startDate;
+
+    public String profilePic;
+
+    public String note;
+
+    public List<String> department;
 }
