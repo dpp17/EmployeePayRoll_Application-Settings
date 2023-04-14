@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayrollapp.services;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
+import com.bridgelabz.employeepayrollapp.exception.EmployeePayrollCustomException;
 import com.bridgelabz.employeepayrollapp.model.EmployeeData;
 import com.bridgelabz.employeepayrollapp.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,11 @@ public class EmployeeServiceImp implements IEmployeeServices{
 
     @Override
     public String getEmployeeDetailById(int id) {
-        Optional<EmployeeData> empListId = empRepo.findById(id);
-        if(empListId.isPresent()){
+        EmployeeData empListId = empRepo.findById(id).orElseThrow(()->new EmployeePayrollCustomException("Employee not Found with ID:: " + id));
+//        if(empListId){
             return "==>> " + empListId;
-        }
-        return "Employee with ID:: " + id + "  doesn't found !!";
+//        }
+//        return "Employee with ID:: " + id + "  doesn't found !!";
     }
 
     @Override
@@ -41,25 +42,25 @@ public class EmployeeServiceImp implements IEmployeeServices{
 
     @Override
     public String editEmployeeDetailsById(EmployeeData empList, int id) {
-        Optional<EmployeeData> editEmployeeDetail = empRepo.findById(id);
-        if (editEmployeeDetail.isPresent()) {
-            editEmployeeDetail.get().setName(empList.getName());
-            editEmployeeDetail.get().setSalary(empList.getSalary());
-            empRepo.save(editEmployeeDetail.get());
+        EmployeeData editEmployeeDetail = empRepo.findById(id).orElseThrow(()->new EmployeePayrollCustomException("Employee not Found with ID:: " + id));
+//        if (editEmployeeDetail.isPresent()) {
+            editEmployeeDetail.setName(empList.getName());
+            editEmployeeDetail.setSalary(empList.getSalary());
+            empRepo.save(editEmployeeDetail);
             return "Employee Details Edited Successfully.... Name:: " + empList.getName() +" || Salary :: " + empList.getSalary();
-        }
-        else
-            return " :: Employee ID:: "+ id +"  doesn't Exist ::";
+//        }
+//        else
+//            return " :: Employee ID:: "+ id +"  doesn't Exist ::";
     }
 
     @Override
     public String deleteEmployeeById(int id) {
-        Optional<EmployeeData> empList = empRepo.findById(id);
-        if(empList.isPresent()){
+        EmployeeData empList = empRepo.findById(id).orElseThrow(()->new EmployeePayrollCustomException("Employee not Found with ID:: " + id));
+//        if(empList.isPresent()){
             empRepo.deleteById(id);
             return "Employee Details Deleted Successfully !!!";
-        }
-        return " :: Employee ID:: "+ id + "  doesn't Exist ::";
+//        }
+//        return " :: Employee ID:: "+ id + "  doesn't Exist ::";
     }
 
     @Override

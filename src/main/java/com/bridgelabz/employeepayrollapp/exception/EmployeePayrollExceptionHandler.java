@@ -23,4 +23,10 @@ public class EmployeePayrollExceptionHandler {
         ResponseDTO responseDTO = new ResponseDTO("Exception Handling while REST API call", errorMessage);
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EmployeePayrollCustomException.class)
+    public ResponseEntity<ResponseDTO> handleEmployeePayrollCustomException(EmployeePayrollCustomException exception){
+        ResponseDTO responseDTO = new ResponseDTO("Exception Handling while REST API call", exception.getMessage());
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+    }
 }
