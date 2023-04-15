@@ -32,5 +32,5 @@ public class EmployeeDTO {
     public String note;
 
     @NotNull(message = "department shouldn't be Empty")
-    public List<String> department;
+    public List<String> departments;
 }

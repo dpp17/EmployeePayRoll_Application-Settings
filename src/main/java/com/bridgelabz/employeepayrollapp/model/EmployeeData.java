@@ -1,9 +1,7 @@
 package com.bridgelabz.employeepayrollapp.model;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,17 +11,24 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
+@Table(name = "employee_payroll")
 public class EmployeeData {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int emp_id;
+
+    @Column(name = "employee_name")
     private String name;
     private double salary;
     private String gender;
     private LocalDate startDate;
     private String profilePic;
     private String note;
-    private List<String> department;
+
+    @ElementCollection
+    @CollectionTable(name = "employee_department", joinColumns = @JoinColumn(name="id"))
+    @Column(name = "department")
+    private List<String> departments;
 
     public EmployeeData(EmployeeDTO employeeDTO) {
         this.name = employeeDTO.name;
@@ -32,6 +37,6 @@ public class EmployeeData {
         this.startDate = employeeDTO.startDate;
         this.profilePic = employeeDTO.profilePic;
         this.note = employeeDTO.note;
-        this.department = employeeDTO.department;
+        this.departments = employeeDTO.departments;
     }
 }
