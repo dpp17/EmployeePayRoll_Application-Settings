@@ -12,4 +12,5 @@ public interface IEmployeeServices {
     String editEmployeeDetailsById(EmployeeData empList, int id);
     String deleteEmployeeById(int id);
     String deleteAllEmployees();
+    List<EmployeeData> getEmployeeDetailByDepartment(String dept);
 }

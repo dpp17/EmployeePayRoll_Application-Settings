@@ -15,7 +15,7 @@ public class EmployeeController {
     @Autowired
     private IEmployeeServices iEmployeeServices;
 
-    //////////////////// ::  Save Description  :: ////////////////////
+    //////////////////// ::  Save Employee  :: ////////////////////
     @PostMapping("/add")
     public ResponseDTO addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO){
         EmployeeData empData = iEmployeeServices.addEmployee(employeeDTO);
@@ -23,7 +23,7 @@ public class EmployeeController {
         return responseDTO;
     }
 
-    //////////////////// ::  Get Description By Id :: ////////////////////
+    //////////////////// ::  Get Employee By Id :: ////////////////////
     @GetMapping("/getEmp/{id}")
     public String getEmployeeDetailById(@PathVariable int id){
         return iEmployeeServices.getEmployeeDetailById(id);
@@ -35,23 +35,29 @@ public class EmployeeController {
         return iEmployeeServices.getAllEmployees();
     }
 
-    //////////////////// ::  Edit Description :: ////////////////////
+    //////////////////// ::  Edit Employee :: ////////////////////
     @PutMapping("/editEmp/{id}")
     public String editEmployeeDetailsById(@Valid @RequestBody EmployeeDTO employeeDTO, @PathVariable int id){
         EmployeeData empList = new EmployeeData(employeeDTO);
         return iEmployeeServices.editEmployeeDetailsById(empList,id);
     }
 
-    //////////////////// ::  Delete Description By Id :: ////////////////////
+    //////////////////// ::  Delete Employee By Id :: ////////////////////
     @DeleteMapping("/deleteEmp/{id}")
     public String deleteEmployeeById(@PathVariable int id){
         return iEmployeeServices.deleteEmployeeById(id);
     }
 
-    //////////////////// ::  Delete All Description :: ////////////////////
+    //////////////////// ::  Delete All Employee :: ////////////////////
     @DeleteMapping("/deleteAllEmp/")
     public String deleteAllEmployees(){
         return iEmployeeServices.deleteAllEmployees();
+    }
+
+    //////////////////// ::  Get Employee By Id :: ////////////////////
+    @GetMapping("/getEmpDept/{dept}")
+    public List<EmployeeData> getEmployeeDetailByDepartment(@PathVariable String dept){
+        return iEmployeeServices.getEmployeeDetailByDepartment(dept);
     }
 
 

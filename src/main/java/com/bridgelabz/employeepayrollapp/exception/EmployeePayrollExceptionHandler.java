@@ -39,4 +39,10 @@ public class EmployeePayrollExceptionHandler {
         ResponseDTO responseDTO = new ResponseDTO("Should have date in format dd MM yyyy", exception.getMessage());
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EmployeePayrollDepartmentNotFoundException.class)
+    public ResponseEntity<ResponseDTO> handleEmployeePayrollDepartmentNotFoundException(EmployeePayrollDepartmentNotFoundException exception){
+        ResponseDTO responseDTO = new ResponseDTO("Invalid Department", exception.getMessage());
+        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+    }
 }
